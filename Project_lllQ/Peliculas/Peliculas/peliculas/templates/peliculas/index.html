@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block Peliculas %}Inicio{% endblock %}
+
+{% block contenido %}
+<body style="background-image: url('/imagenes/Zero.gif'); background-size: cover; background-position: center; padding: 30px; margin: 0; color: white;">
+
+    <div class="card-header">
+        <a name="" id="" href="{% url 'crear' %}" class="btn btn-success" role="button">Crear Pelicula</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title text-warning">Peliculas</h4>
+        
+        <div class="table-responsive">
+            <table id="myTable" class="table table-dark table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pelicula in peliculas %}
+                    <tr>
+                        <td scope="row">{{ pelicula.id }}</td>
+                        <td>{{ pelicula.titulo }}</td>
+                        <td>
+                            <img src="{{ pelicula.imagen.url }}" height="100">
+                        </td>
+                        <td>{{ pelicula.descripcion }}</td>
+                        <td>
+                            <a href="{% url 'editar' pelicula.id %}" class="btn btn-warning">Editar</a>
+                            <a href="{% url 'eliminar' pelicula.id %}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <script>$(document).ready( function () {
+                $('#myTable').DataTable();
+            } );
+            var table = new DataTable('#myTable', {
+            language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+            },
+            });</script>
+        </div>
+        
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+</div>
+
+{% endblock %}
